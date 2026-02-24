@@ -1,0 +1,34 @@
+PART 3 — Closure Is NOT Copying Value, It Stores Reference
+
+Look carefully:
+
+def outer():
+    x = 10
+
+    def inner():
+        print(x) 
+
+    x = 20 #here it changes 
+
+    return inner #its task is to return inner function just further inner's task is to print the value 
+
+f = outer() #understand that if this is assigned without braces then f and outer will be just referencing to the same object function and when called again they will return inner and nothing will be printed 
+f()
+
+
+Output:
+
+20
+
+
+Why not 10?
+
+Because closure stores reference, not value.
+
+This is extremely important.
+and : Closures do NOT remember the value.
+Closures remember the variable from the enclosing scope (its own scope) the function in which it is enclosed  — not the global variable.
+When inner is created, Python attaches a closure reference to the x inside outer, not any other x.
+So inner stores reference to:
+outer's x → 10
+Not global x.

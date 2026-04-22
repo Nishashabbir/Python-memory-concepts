@@ -1,0 +1,66 @@
+
+variables internal behavior **********************************
+
+
+Single Underscore _
+
+
+self._balance = balance
+What does this do?
+Technically?
+Nothing.
+It behaves exactly like a normal variable.
+But it means:
+“This is internal. Please don’t modify it from outside.”
+It’s a signal.
+Python philosophy:
+We trust you.
+So _variable is just a warning label.
+Like:
+⚠️ Internal use only
+But the door is still open.
+
+
+Double Underscore __
+
+Now this one actually changes something.
+class A:
+    def __init__(self):
+        self.__x = 10
+You think the variable is called __x.
+But Python secretly changes the name.
+Internally it becomes:
+_A__x
+This is called name mangling.
+Without renaming, both classes would have __value.
+That could cause confusion.
+So Python changes:
+
+Parent → _Parent__value
+Child → _Child__value
+Now they don’t clash.
+Why It Feels Confusing
+Because people say:
+“Double underscore makes it private.”
+That’s not fully true.
+It just renames it.
+You can still access it:
+obj._A__x
+So it's hidden… but not really.
+
+When Should You Use Each?
+
+Be practical:
+Use normal variable
+When it’s meant to be public.
+Use _variable
+When it’s internal but you don’t need protection.
+This is most common.
+Use __variable
+Only when:
+You are writing a class meant for inheritance
+You want to avoid subclass name conflicts
+Otherwise, don’t overuse it.
+
+_x : this is not a private variable this is just internal for the use of developer and you should not  directly access it though you can 
+

@@ -42,7 +42,7 @@
 #     print(i)  # breaks before printing 5 
 
 # for i in range(10):
-#     print(i)   #prints 5 and then stops 
+#     print(i)   #prints up to  5 and then stops 
 #     if i == 5:
 #         break
 
@@ -58,15 +58,17 @@
 # for i in range(6):
 #     print(i)
 # else:
-#     print("loop Finished !")  #only works in the simple loops 
+#     print("loop Finished !")  #only works in the simple loops and both the statements will run 
 
 # # But not ____ if break occurs:
 
 # for i in range(5):
+#     print(i)
 #     if i == 3:
 #         break #here the whole loop ends , so else is skipped automatically 
 # else:
 #     print("Finished") # it will not run 
+
 
 # 10 — Nested Loops
 
@@ -82,6 +84,7 @@
 # 2 0 
 # 2 1
 
+
 # 11 - Looping Through Dictionaries
 
 # for printing the keys only : 
@@ -90,18 +93,18 @@
 #     print(key)
 
 
-#for values only 
+# for values only 
 # data = {"a":1, "b":2}
 # for values  in data.values():
 #     print(values)
 
 
 
-#  if you want to print the both 
+#  if you want to print the both  then you have to change the keyword on the iterable 
 
 # data = {"a":1, "b":2}
 # for key , value in data.items():
-#     print(key , ": " , value)
+#     print(key , ": " , value) 
 
 # 12 — enumerate (Professional Tool)
 # instead of using : 
@@ -111,8 +114,9 @@
 # names = ["A","B","C"]
 
 #  #in this way you will be accessing the indices as well 
-# for index, name in enumerate(names):
-#     print(index, name)
+
+# for index , name in enumerate(names ):
+#     print(f"at index {index} : name is {name }")
 
 # 13 — zip (Advanced Tool)
 # scenerio : when you want to apply a loop on more than 1 list at the same time 
@@ -150,7 +154,7 @@
 #     print(user["name"]) #not users[name] that will be invalid  
 
 
-# 17- Loop Control Variable Memory Behavior
+# # 17- Loop Control Variable Memory Behavior
 
 # funcs = []
 
@@ -206,8 +210,8 @@
 
 # for x in lst:
 #     x = x * 10  #here variables are reassigned and new objects created in the memory  , but python still points to the old objects 
-
-# print(lst) #so here no change in the list 
+#     print(x) #this will have different result then the print statement down to it 
+# print(lst) #so here no change in the list , so the lst was not modified but it was reassigned so the above points to the reasigned one and the later print statement points to the older list un modified 
 
 # answer is : 
 # 1 , 2, 3 
@@ -235,12 +239,12 @@
 # same goes on for others : 
 # Final:
 # lst → [1,2,3]
-# Because integers are immutable and assignment doesn't modify original object.
+# Because integers are immutable and assignment doesn't modify original object. it just creates new ones 
 
 
 # Core Rule (Tattoo this in your brain)
 
-# Assignment → changes variable
+# Assignment → changes variable not objects 
 # Mutation → changes object
 
 # Example:
@@ -255,8 +259,10 @@
 
 # x = [5]
 # x.append(10)
+# print(x)
 
 
+# output: [5,10]
 # # **********************************
 # Lambda is just a function without a name.
 # Normal function:
@@ -300,9 +306,12 @@
 # [2,4,6]
 
 # Lambda Capturing Variable
-# x = 10
-# f = lambda: x
-# print(f())
+x = 10
+f = lambda :x 
+print(f())
+# also 
+f = lambda x :x*10 
+print(f(2))
 
 # Output:
 # 10
@@ -312,12 +321,14 @@
 
 # Sorting objects:
 
-users = [
-    {"name":"A", "age":20},
-    {"name":"B", "age":15}
-]
+# users = [
+#     {"name":"A", "age":20},
+#     {"name":"B", "age":15}
+# ]
 
-# users.sort(key=lambda user: user["age"])
-print(users)
-# Sorts by age.
+# # users.sort(key=lambda user: user["age"])
+# print(users)
+# # Sorts by age.
+
+
 

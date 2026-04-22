@@ -1,4 +1,6 @@
-Step 1: What is actually happening here?
+
+
+understanding the use and need of class methods *********************
 class Person:
     population = 0
     
@@ -10,134 +12,187 @@ class Person:
         return cls.population
 
 There are two levels here:
-
 population → belongs to the class
-
 Each Person() object → belongs to an instance
-
 So when you create:
-
 p1 = Person()
 p2 = Person()
-
 You don’t increase something inside p1 or p2.
-
 You increase something stored in:
-
 Person.population
-
 That variable lives in the class space, not inside individual objects.
-
 Step 2: Could we make it a normal object method?
-
 You’re thinking:
-
-“Why not just do this?”
 
 def get_population(self):
     return Person.population
-
 Technically?
-
 Yes. That would work.
-
 So what’s the big deal?
-
 Now comes the deeper question:
-
 👉 Does this method logically belong to an instance or to the class?
-
 Step 3: The Conceptual Difference
 🔹 Instance Method (self)
-
 Used when the function needs data from that specific object.
-
 Example:
 
 def get_name(self):
     return self.name
 
 This only makes sense if an object exists.
-
 🔹 Class Method (cls)
 
 Used when the function works with class-level data, not individual object data.
-
 Population is NOT about:
-
 p1
-
 p2
-
 p3
 
 It’s about the entire species of Person.
-
 It’s a class-wide property.
-
 So it logically belongs to the class.
-
 Step 4: The Real Advantage (This Is the Important Part)
-
 Here’s where it gets interesting.
-
 Imagine inheritance.
-
 class Student(Person):
     pass
-
 Now create:
-
 s1 = Student()
-
 Now ask:
-
 Student.get_population()
-
 If you used:
-
 return Person.population
-
 It would always refer to Person.
-
 But with:
-
 return cls.population
-
 Now Python automatically adjusts.
-
 If Student had its own population, it would refer to that instead.
-
 That’s why cls matters.
-
 It keeps things dynamic and inheritance-safe.
-
 Step 5: Even Bigger Perspective
-
 Think like this:
-
 Instance methods → behavior of one object
-
 Class methods → behavior of the blueprint itself
-
 Asking:
-
 “How many humans exist?”
-
 You don’t ask one human.
-
 You ask the species registry.
-
 Same logic here.
-
 Step 6: When Should You Use Class Methods?
-
 Use @classmethod when:
-
 You are working with class variables
-
 You want alternative constructors
-
 The method logically belongs to the class, not instances
-
 You want inheritance to work clean
+
+if you want to use \ this symbol as string then you would use it twice cuz otherwise python sees it as  an escape sequence and error will be thrown 
+
+
+understanding the difference of __repr__ and __str__*******************************
+
+The real difference (no fluff)
+__str__ → for users
+Readable, friendly output.
+__repr__ → for developers (and debugging)
+Precise, unambiguous, and ideally something that could recreate the object.
+ Think of it like this
+If you had a Student object:
+
+__str__ is what you show on a report card
+__repr__ is what you show in a debug log or code
+ What happens if you don’t define __repr__?
+Python gives you this:
+
+<__main__.Student object at 0x7f8c...>
+That’s useless for debugging.
+ Why __repr__ looks like code
+You saw this:
+
+def __repr__(self):
+    return f"Student('{self.name}', {self.marks})"
+You asked: why include the class name?
+ Because the ideal goal of __repr__ is:
+If possible, it should look like code that can recreate the object.
+
+ Example
+s = Student("Ali", 90)
+Now:
+repr(s)
+returns:
+Student('Ali', 90)
+That means:
+ A developer could literally copy this and recreate the object.
+ That’s the key idea
+
+__repr__ = “How would I rebuild this object in code?”
+
+
+__init__ does NOT give memory or create the object.
+It only initializes an already-created object.
+
+
+ What actually happens (step-by-step)
+
+When you write:
+
+s = Student("Ali")
+
+Python does this behind the scenes:
+
+1. Memory allocation happens first
+
+Python creates a blank object in memory using:
+
+__new__()
+
+ This is the step that actually allocates memory
+
+2. Then __init__ runs
+__init__(self, "Ali")
+
+ This step only fills/configures the object
+
+ So the real order is:
+1. __new__   → creates object in memory
+2. __init__  → initializes object
+
+
+
+__str__
+
+1. The key rule: __str__ MUST return a string
+
+This is the most important point.
+
+Python requires:
+
+def __str__(self):
+    return "something"
+
+It must be a string, not an int.
+
+2. What happens if you return self.value directly?
+
+Your code:
+
+def __str__(self):
+    return self.value
+
+If self.value = 30, then you're returning:
+
+return 30   # integer
+Problem:
+
+Python will raise an error like:
+
+TypeError: __str__ returned non-string (type int)
+3. Why str(self.value) fixes it
+def __str__(self):
+    return str(self.value)
+
+Now:
+
+self.value → 30 (int)
+str(self.value) → "30" (string)
+
+So Python is happy.

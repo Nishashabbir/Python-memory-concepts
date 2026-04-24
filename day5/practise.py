@@ -165,15 +165,70 @@
 
 # now instead of using s1.get_age() , like instead of calling  get_age() , we can normally call s1.age , but we get this behavior by creating a property mthod or property decorator (that we learnt above) , instead of creating get_age() functions , here we go : 
 
-class Student:
-    def __init__(self, name , age):
-        self.name=name
-        self.__age=age 
-    @property
-    def age(self):
-        return self.__age
-p=Student("nisha" , 20)   
-print(p.age)
+# class Student:
+#     def __init__(self, name , age):
+#         self.name=name
+#         self.__age=age 
+#     @property
+#     def age(self):
+#         return self.__age
+# p=Student("nisha" , 20)   
+# print(p.age)
+
+
+
+# composition 
+# passing the object outside the class as  a part 
+# class Engine:
+#     def __init__(self):
+#         pass 
+#     def start(self):
+#         print("the engine is started ")
+
+# class Car:
+#     def __init__(self):
+#         self.engine=Engine() #inside the class , connected with the other class 
+# so through this self.engine we can call the properties of Engine() as well 
+#     def start_car(self):
+#         self.engine.start()
+#         print("The car is started!")
+
+        
+# # lets create some objects here 
+# c1=Car()
+# c1.start_car()
+
+#2 passing the object outside the class  as a part 
+# class Engine:
+#     def __init__(self):
+#         pass 
+#     def start(self):
+#         print("the engine is started ")
+
+# class Car:
+#     def __init__(self, engine):
+#         self.engine=engine 
+#     def start_car(self):
+#         self.engine.start()
+#         print("The car is started!")
+
+        
+# # lets create some objects here 
+# c1=Car(Engine())
+# c1.start_car()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

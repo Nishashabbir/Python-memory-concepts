@@ -1,0 +1,159 @@
+PART 3 — PRACTICE QUESTIONS
+
+ Don’t run them. Think first.
+
+Q1
+a = [1, 2, 3]
+b = a
+b.append(4)
+
+print(a)
+Q2
+a = [1, 2, 3]
+b = a
+
+b = [9, 9]
+
+print(a)
+Q3
+x = 10
+y = x
+
+y = y + 5
+
+print(x)
+Q4
+def func(lst):
+    lst.append(100)
+
+a = [1, 2]
+func(a)
+
+print(a)
+Q5
+def func(lst):
+    lst = [0, 0]
+
+a = [1, 2]
+func(a)
+
+print(a)
+Q6
+import copy
+
+a = [[1, 2], [3, 4]]
+b = copy.copy(a)
+
+b[0][0] = 999
+
+print(a)
+Q7
+import copy
+
+a = [[1, 2], [3, 4]]
+b = copy.deepcopy(a)
+
+b[0][0] = 999
+
+print(a)
+Q8
+class A:
+    def __init__(self):
+        self.x = [1, 2]
+
+obj1 = A()
+obj2 = obj1
+
+obj2.x.append(3)
+
+print(obj1.x)
+Q9
+class A:
+    def __init__(self):
+        self.x = [1, 2]
+
+obj1 = A()
+obj2 = obj1
+
+obj2 = A()
+obj2.x.append(3)
+
+print(obj1.x)
+Q10 ( tricky)
+a = [1, 2, 3]
+b = a[:]
+
+b.append(4)
+
+print(a)
+ PART 4 — ANSWERS
+ Q1
+
+[1, 2, 3, 4]
+→ same object, mutated
+
+ Q2
+
+[1, 2, 3]
+→ reassignment, new object
+
+ Q3
+
+10
+→ integers immutable
+
+ Q4
+
+[1, 2, 100]
+→ function mutated original
+
+ Q5
+
+[1, 2]
+→ reassignment inside function
+
+ Q6
+
+[[999, 2], [3, 4]]
+→ shallow copy (inner shared)
+
+ Q7
+
+[[1, 2], [3, 4]]
+→ deep copy (independent)
+
+ Q8
+
+[1, 2, 3]
+→ same object
+
+ Q9
+
+[1, 2]
+→ obj2 reassigned
+
+
+q-10
+What will be the output?
+
+a = (1, 2, [3, 4])
+a[2].append(5)
+print(a)
+
+Q-11
+a = [1, 2, 3]
+b = a.copy()
+b.append(4)
+print(a, b)
+
+Q-12
+Difference between:
+a = b = [1, 2, 3]
+and
+
+a = [1, 2, 3]
+b = [1, 2, 3]
+
+== → value comparison
+is → memory reference
+

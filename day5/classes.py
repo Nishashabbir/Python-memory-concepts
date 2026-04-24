@@ -39,6 +39,16 @@
 # means:
 # Inside this object’s dictionary, create key "name" and store value.
 
+# You Can Even Add Attributes Anywhere
+# class Test:
+#     pass
+
+# obj = Test()
+# obj.y = 50   # added outside class!
+
+# print(obj.y)
+
+#  Python allows dynamic attributes
 # part 4  # NOw imagin a scnerio that if there are many objects of one class , now all objects have one same variable equally shared and all objects have one variable which is unique to each one 
 # like a class dog of the same sepecie (one common variable ) but they all have unique names (another varaible possessed by every but unique to each object  )
 
@@ -65,6 +75,8 @@
 # print(d1.sepecie) #husky changed 
 # print(d2.sepecie) #but others remain the same 
 
+# ////////////////////////////////////////////////////////////////////
+
 # PART 7 — Method Types (Very Important)
 
 # 1️ Instance Methods
@@ -83,6 +95,7 @@
 # Person.total_population() - Ask how many people exist in total
 # Car.factory_settings() - Get default settings for all cars
 
+# ////////////////////////////////////////////////////////////////////
 
 # 2️ Class Methods
 # @classmethod
@@ -124,6 +137,8 @@
 # “Does this function need balance, name, or total_accounts?”
 # If yes → use self or cls
 # If no → use @staticmethod
+
+# ////////////////////////////////////////////////////////////////////
 
 # variables internal behavior 
 
@@ -218,6 +233,7 @@
 # print(student.get_grade())
 # print(student.get_status())
 
+# ////////////////////////////////////////////////////////////////////
 
 # Protected Properties/   
 
@@ -258,6 +274,7 @@
 # print(calc.result)
 # # calc.__validate(5) # This would cause an error
 
+# ////////////////////////////////////////////////////////////////////
 
 # name mangling means "change or hide the variables "
 
@@ -287,7 +304,7 @@
 
 
 
-
+# ////////////////////////////////////////////////////////////////////
 
 # PART 9 — Property Decorator
 # Instead of:
@@ -309,6 +326,7 @@
 
 # Feels like attribute, acts like method.
 
+# ////////////////////////////////////////////////////////////////////
 
 # PART 10 — Dunder Methods (Magic Methods)
 # 1. Object representation
@@ -464,6 +482,7 @@
 #  Then optionally __str__
 
 
+# ////////////////////////////////////////////////////////////////////
 
 # Step 2 — Object Creation & Lifecycle (__init__, __del__)
 # _init__ runs automatically when you create an object.
@@ -527,6 +546,8 @@
 
 #  So professionals usually avoid relying on it.
 
+# ////////////////////////////////////////////////////////////////////
+
 # Step 3 — Operator Overloading*************************
 
 # This is where Python starts feeling “magical.”
@@ -552,6 +573,7 @@
 # ==
 # *
 # <, >
+# ////////////////////////////////////////////////////////////////////
 
 # All using dunder methods.
 #  Core idea
@@ -636,6 +658,7 @@
 
 
 # you can use other operator as well such as * , == 
+# ////////////////////////////////////////////////////////////////////
 
 # Step 4 — Container Behavior ***********************
 
@@ -734,6 +757,7 @@
 # Track index yourself
 # We’ll do both—but start with the smart way.
 
+# ////////////////////////////////////////////////////////////////////
 
 # Method 1 (BEST) — Use existing list iterator
 # class Library:
@@ -789,10 +813,6 @@
 
 # Classes can behave like built-ins.
 
-        
-
-
-
 
 
 # just as you can apply iterator on a list , you can make your object as an iterator as well 
@@ -806,8 +826,6 @@
 # print(next(mylist))
 
 
-
-
 # class library:
 #     def __init__(self , shelves):
 #         self.shelves=shelves
@@ -819,6 +837,7 @@
 #     print(f"at position {i+1} there is shelf : {l}")
 
 
+# ////////////////////////////////////////////////////////////////////
 
 # # # PART 11 — Inheritance
 # # Python Inheritance
@@ -871,7 +890,8 @@
 #   def __init__(self, fname, lname):
 #     super().__init__(fname, lname)
 
-#     By using the super() function, you do not have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
+#     # ////////////////////////////////////////////////////////////////////
+# By using the super() function, you do not have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
 
 # lets create a class and inherit the child classes as well as method and see their behavior 
 
@@ -947,6 +967,7 @@
 
 
 
+# ////////////////////////////////////////////////////////////////////
 
 # 7. Types of Inheritance in Python
 # 1. Single Inheritance
@@ -966,25 +987,26 @@
 # class C(A): pass
 
 
+# ////////////////////////////////////////////////////////////////////
 
 # 8. Method Resolution Order (MRO)
 
 # When multiple inheritance is involved, Python follows a specific order.
 
-class A:
-    def show(self):
-        print("A")
+# class A:
+#     def show(self):
+#         print("A")
 
-class B(A):
-    pass
+# class B(A):
+#     pass
 
-class C(A):
-    pass
+# class C(A):
+#     pass
 
-class D(B, C):
-    pass
+# class D(B, C):
+#     pass
 
-print(D.mro())
+# print(D.mro())
 
 # method resolution order 
 # MRO = search path for methods
@@ -1076,6 +1098,7 @@ print(D.mro())
 #  Each class is called once
 #  Order is consistent
 #  Cooperative inheritance works smoothly
+# ////////////////////////////////////////////////////////////////////
 
 # # errors finding : ***************
 
@@ -1155,9 +1178,10 @@ print(D.mro())
 
 #  Always use super()
 #  Never call parent directly
+# ////////////////////////////////////////////////////////////////////
 
-# PART 14 — Composition (Professional Design)
-
+# PART 14 — Composition (Professional Design)*********************
+# Composition is when a class stores another object as an attribute and uses it to perform tasks.
 # Instead of inheritance:
 
 # class Engine:
@@ -1173,37 +1197,177 @@ print(D.mro())
 
 
 # example : 
-class Engine:
-    def start(self):
-        print("Engine started")
+# class Engine:
+#     def start(self):
+#         print("Engine started")
 
-class Car:
-    def __init__(self):
-        self.engine = Engine()  # composition
+# class Car:
+#     def __init__(self):
+#         self.engine = Engine()  # composition
 
-    def start(self):
-        print("Car starting...")
-        self.engine.start()
+#     def start(self):
+#         print("Car starting...")
+#         self.engine.start()
 
-car = Car()
-car.start()
+# car = Car()
+# car.start()
 
-# Why Composition is Better (Real Talk)
-# Inheritance locks you into a rigid hierarchy. Composition gives you flexibility.
-# Inheritance problem:
+# # Why Composition is Better (Real Talk)
+# # Inheritance locks you into a rigid hierarchy. Composition gives you flexibility.
+# # Inheritance problem:
 
-class ElectricCar(Car):
-    pass
+# class ElectricCar(Car):
+#     pass
 
 # What if:
-
 # Electric cars don’t have the same engine?
 # You need hybrid behavior?
 
 # You end up with messy class trees.
 
+# ////////////////////////////////////////////////////////////////////
+
+# Case 1: Internal Creation (no parameter)
+# class Car:
+#     def __init__(self):
+#         self.engine = Engine()   # created internally
+
+#  No parameter needed
+#  Car decides everything
+
+#  Case 2: External Input (parameter needed)
+# class Car:
+#     def __init__(self, engine): #engine parameter is passed but python will know if its an object or not at the time of creation of object   when it is passed as object inside object or a variable inside an object  
+#         self.engine = engine
+
+#  Now you must pass it:
+
+# car = Car(Engine())
+
+# OBJECTS ARE MUTABLE 
+
+# 9. Quick Cheat Sheet
+
+# Type	Mutable?
+# list	      Yes
+# dict	      Yes
+# set	      Yes
+# object/class	      Yes
+# int	      No
+# float	      No
+# str	      No
+# tuple	      No
 
 
+# Objects = mutable containers of references
+# Changing attributes ≠ creating new object
+# Reassignment = new object
+# Functions can modify original objects (very important)
+# Mutability affects real-world bugs and design
+
+# integers are immutable 
+# x = 10
+# y = x #it takes the copy of x 
+
+# y = y + 5
+# print(y) #15
+# print(x) #10
+
+# lists are mutable 
+# x = [10] 
+# y = x   #it points to the same memory as python didn't create a new memory 
+
+# y.append(5)
+# print(y) 
+# print(x)
+
+# class Person:
+#     def __init__(self, name):
+#         self.name = name
+
+# p = Person("Ali")
+# print(id(p))      # before
+
+# p.name = "Ahmed" #only part of the object is changed here 
+
+# print(id(p))      # after
+# p=Person("Ahmad") 
+# print(id(p))
 
 
+# x = 10
+# print(x)
+# print(id(x))
+# x = x + 5
+# print(x)
+# print(id(x))
+# the ids of both are different so it means the original x wasn't chnaged , but it was another x object that was created 
 
+
+# ////////////////////////////////////////////////////////////////////
+
+# PART 16 — Class is Also an Object
+# 1. Proof: A class is an object
+
+# That means:
+
+# A class can be assigned to a variable
+# Passed as an argument
+# Returned from a function
+
+
+# Step 3: Assign class to another variable
+
+# class Car:
+#     def drive(self):
+#         print("Driving...")
+
+# MyCar = Car  # assigning class to another variable , this is how we assign class to a variable 
+
+# c = MyCar() #here we are creating the object of a variable 
+# c.drive()
+# Step 4: Pass class as a function argument
+# class Dog:
+#     def speak(self):
+#         print("Woof!")
+
+# def make_sound(animal_class):
+#     animal = animal_class()  #the object of that class 
+#     animal.speak()
+
+# make_sound(Dog)
+
+# Step 5: Return a class from a function
+
+# def choose_class(name): #function 
+
+#     class A: #classes inside the function 
+#         def show(self):
+#             print("Class A")
+
+#     class B:
+#         def show(self):
+#             print("Class B")
+
+#     return A if name == 'A' else B  #if else usage  
+
+# MyClass = choose_class('A')
+# obj = MyClass()
+# obj.show()
+
+#  Classes can be dynamically selected and returned.
+
+# Step 6: Add attributes dynamically
+# class Person:
+#     pass
+
+# Person.age = 25
+
+# p = Person()
+# print(p.age)
+
+#  The instance can access attributes added to the class at runtime.
+
+# object → instance of class
+# class → instance of type
+# type → class of all classes

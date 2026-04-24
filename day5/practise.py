@@ -137,7 +137,45 @@
 
 
         
+# practise of private variable methods and name mangling 
+
+# class Student:
+#     def __init__(self, name , age):
+#         self.name=name
+#         self.__age=age 
+#     def get_age(self):
+#         return self.__age
+#     def __validate(self, age):
+#         if age>0:
+#             return True
+#         else:
+#             return False
+#     def set_age(self , age):
+#         if self.__validate(age):
+#             self.__age=age 
+#             return self.__age
+#         else:
+#             print("invalid") 
+
+# s1=Student("nisha" , 20)
+# print(s1.get_age())
+# print(s1._Student__age) #this is name mangling (changes the name of the variable )
+# print(s1.set_age(21))
+# print(s1._Student__age) #all the statements are invalid 
+
+# now instead of using s1.get_age() , like instead of calling  get_age() , we can normally call s1.age , but we get this behavior by creating a property mthod or property decorator (that we learnt above) , instead of creating get_age() functions , here we go : 
+
+class Student:
+    def __init__(self, name , age):
+        self.name=name
+        self.__age=age 
+    @property
+    def age(self):
+        return self.__age
+p=Student("nisha" , 20)   
+print(p.age)
 
 
 
+    
 

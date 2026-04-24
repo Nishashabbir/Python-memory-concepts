@@ -189,10 +189,24 @@ TypeError: __str__ returned non-string (type int)
 3. Why str(self.value) fixes it
 def __str__(self):
     return str(self.value)
-
 Now:
-
 self.value → 30 (int)
 str(self.value) → "30" (string)
-
 So Python is happy.
+
+Common Mistake
+People think:
+super() == call parent class
+ Wrong
+Correct thinking:
+
+super() == follow MRO chain
+
+
+Big Picture
+
+MRO + super() together create a cooperative system where:
+
+Classes don’t hardcode parents
+Behavior composes cleanly
+Complex hierarchies stay predictable

@@ -127,19 +127,166 @@
 
 # variables internal behavior 
 
-# encapsulation  in python : 
-# Python does NOT believe in strict private variables
+# encapsulation  in python : **********************************
+# Why Use Encapsulation?
+# Encapsulation provides several benefits:
 
-# It follows:
+# Data Protection: Prevents accidental modification of data
+# Validation: You can validate data before setting it
+# Flexibility: Internal implementation can change without affecting external code
+# Control: You have full control over how data is accessed and modified
 
-# “We are all responsible developers”
 
-# So encapsulation in Python is:
+# here we learn about it 
+# In Python, you can make properties private by using a double underscore __ prefix:
 
-# more about discipline
-# less about restriction
-# _x → “Please don’t touch”
-# __x → “Really, don’t touch (but you still can if you try)”
+# Create a private class property named __age:
+
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.__age = age # Private property
+
+# p1 = Person("Emil", 25)
+# print(p1.name)
+# print(p1.__age) # This will cause an error
+
+# # method 2 where you can access through a function already defined in the class and can be used outside the class on an object unlike property 
+# # Use a getter method to access a private property:
+
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.__age = age
+
+#   def get_age(self):
+#     return self.__age
+
+# p1 = Person("Tobias", 25)
+# print(p1.get_age())
+
+# you can modify a private property like this 
+
+# Use a setter method to change a private property:
+
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.__age = age
+
+#   def get_age(self):
+#     return self.__age
+
+#   def set_age(self, age):
+#     if age > 0:
+#       self.__age = age
+#     else:
+#       print("Age must be positive")
+
+# p1 = Person("Tobias", 25)
+# print(p1.get_age())
+
+# p1.set_age(26)
+# print(p1.get_age())
+
+
+
+# Use encapsulation to protect and validate data:
+
+# class Student:
+#   def __init__(self, name):
+#     self.name = name
+#     self.__grade = 0
+
+#   def set_grade(self, grade):
+#     if 0 <= grade <= 100:
+#       self.__grade = grade
+#     else:
+#       print("Grade must be between 0 and 100")
+
+#   def get_grade(self):
+#     return self.__grade
+
+#   def get_status(self):
+#     if self.__grade >= 60:
+#       return "Passed"
+#     else:
+#       return "Failed"
+
+# student = Student("Emil")
+# student.set_grade(85)
+# print(student.get_grade())
+# print(student.get_status())
+
+
+# Protected Properties/   
+
+# class Person:
+#   def __init__(self, name, salary):
+#     self.name = name
+#     self._salary = salary # Protected property
+
+# p1 = Person("Linus", 50000)
+# print(p1.name)
+
+# print(p1._salary) # Can access, but shouldn't
+
+# Private Methods
+# You can also make methods private using the double underscore prefix:
+
+# Example
+# Create a private method:
+
+# class Calculator:
+#   def __init__(self):
+#     self.result = 0
+
+#   def __validate(self, num):
+#     if not isinstance(num, (int, float)):
+#       return False
+#     return True
+
+#   def add(self, num):
+#     if self.__validate(num):
+#       self.result += num
+#     else:
+#       print("Invalid number")
+
+# calc = Calculator()
+# calc.add(10)
+# calc.add(5)
+# print(calc.result)
+# # calc.__validate(5) # This would cause an error
+
+
+# name mangling means "change or hide the variables "
+
+# you can access the private varible in a way like this obj._class__variable 
+
+# Name Mangling
+# Name mangling is how Python implements private properties and methods.
+
+# When you use double underscores __, Python automatically renames it internally by adding _ClassName in front.
+
+# For example, __age becomes _Person__age.
+
+# Example
+# See how Python mangles the name:
+
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.__age = age
+
+# p1 = Person("Emil", 30)
+
+# # This is how Python mangles the name:
+# print(p1._Person__age) # Not recommended!
+
+
+
+
+
 
 
 # PART 9 — Property Decorator
@@ -613,19 +760,19 @@
 
 #  Clean, simple, professional
 
-class Library:
-    def __init__(self , books):
-        self.books=books 
-    def __iter__(self):
-        return iter(self.books)
+# class Library:
+#     def __init__(self , books):
+#         self.books=books 
+#     def __iter__(self):
+#         return iter(self.books)
     
 
-l1 = Library(["English", "Urdu", "Maths"])
-# method 1 to print 
-mylist=iter(l1)
-print(next(mylist))
-print(next(mylist))
-print(next(mylist))
+# l1 = Library(["English", "Urdu", "Maths"])
+# # method 1 to print 
+# mylist=iter(l1)
+# print(next(mylist))
+# print(next(mylist))
+# print(next(mylist))
 
 # simply like this : 
 
@@ -657,6 +804,404 @@ print(next(mylist))
 # print(next(mylist))
 # print(next(mylist))
 # print(next(mylist))
+
+
+
+
+# class library:
+#     def __init__(self , shelves):
+#         self.shelves=shelves
+#     def __iter__(self):
+#         return iter(self.shelves)
+
+# l1=library(["1A", "1B" , "1C" ])
+# for i,  l in enumerate(l1):
+#     print(f"at position {i+1} there is shelf : {l}")
+
+
+
+# # # PART 11 — Inheritance
+# # Python Inheritance
+# # Inheritance allows us to define a class that inherits all the methods and properties from another class.
+# # Parent class is the class being inherited from, also called base class.
+# # Child class is the class that inherits from another class, also called derived class.
+
+
+
+# # simple :  create a parent class and a child class to inherit it 
+# class Person:
+#   def __init__(self, fname, lname):
+#     self.firstname = fname
+#     self.lastname = lname
+
+#   def printname(self):
+#     print(self.firstname, self.lastname)
+
+# #Use the Person class to create an object, and then execute the printname method:
+
+# x = Person("John", "Doe")
+# x.printname()
+
+# class Student(Person):
+#   pass
+
+# s= Student("Mike", "Olsen")
+# s.printname()
+
+# # __init__()
+# # Add the __init__() function to the Student class:
+
+# class Student(Person):
+#   def __init__(self, fname, lname):
+    #add properties etc.
+
+
+# When you add the __init__() function, the child class will no longer inherit the parent's __init__() function.
+# Note: The child's __init__() function overrides the inheritance of the parent's __init__() function.
+
+# To keep the inheritance of the parent's __init__() function, add a call to the parent's __init__() function:
+
+# Example
+
+# class Student(Person):
+#   def __init__(self, fname, lname):
+#     Person.__init__(self, fname, lname)
+# Python also has a super() function that will make the child class inherit all the methods and properties from its parent:
+# class Student(Person):
+#   def __init__(self, fname, lname):
+#     super().__init__(fname, lname)
+
+#     By using the super() function, you do not have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
+
+# lets create a class and inherit the child classes as well as method and see their behavior 
+
+
+
+# class person():
+#     def __init__(self , fname , lname):
+#         self.fname=fname
+#         self.lname=lname 
+#     def __repr__(self):
+#         return f"first name is {self.fname} and last name is {self.lname}"
+    
+# class employee(person):
+#     pass
+
+# class student(person):
+#     def __init__(self, name ):
+#         self.name=name 
+        
+#     def __repr__(self):
+#         return f"the name is {self.name}"  
+
+
+# # going one step forward 
+# class child(person):
+#     def __init__(self, fname, lname , age):
+#         person.__init__(self , fname, lname) 
+#         self.age=age
+#     def __repr__(self):
+#        return f"first name is {self.fname} and last name is {self.lname} and the age is {self.age}"     
+
+#     def greet(self):
+#         return f"Hello {self.fname}. Good morning! "
+
+
+# c1=child("sir" , "Asif" , 40)
+# print(c1)
+# print(c1.greet())
+
+
+
+# p1=person("nisha" ,  "Shabbir")
+# print(p1)
+# e1=employee("abdullah" , "ali")
+# print(e1)
+# s1=student("ghulam" )
+# print(s1)
+
+
+# instead of writing person.__init__  , you will be writing super() like this 
+
+# class Person:
+#   def __init__(self, fname, lname):
+#     self.firstname = fname
+#     self.lastname = lname
+
+#   def printname(self):
+#     print(self.firstname, self.lastname)
+
+# class Student(Person):
+#   def __init__(self, fname, lname, year):
+#     super().__init__(fname, lname)
+#     self.graduationyear = year
+
+#   def welcome(self):
+#     print("Welcome", self.firstname, self.lastname, "to the class of", self.graduationyear)
+
+# x = Student("Mike", "Olsen", 2024)
+# x.welcome()
+
+
+
+
+
+
+
+# 7. Types of Inheritance in Python
+# 1. Single Inheritance
+# class A: pass
+# class B(A): pass
+# 2. Multiple Inheritance
+# class A: pass
+# class B: pass
+# class C(A, B): pass
+# 3. Multilevel Inheritance
+# class A: pass
+# class B(A): pass
+# class C(B): pass
+# 4. Hierarchical Inheritance
+# class A: pass
+# class B(A): pass
+# class C(A): pass
+
+
+
+# 8. Method Resolution Order (MRO)
+
+# When multiple inheritance is involved, Python follows a specific order.
+
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    pass
+
+class C(A):
+    pass
+
+class D(B, C):
+    pass
+
+print(D.mro())
+
+# method resolution order 
+# MRO = search path for methods
+# Python uses C3 linearization
+# Ensures:
+# Predictability
+# No conflicts
+# Logical inheritance flow
+
+# What if Methods Exist in Multiple Classes?
+
+# Let’s modify:
+# class B(A):
+#     def show(self):
+#         print("B")
+# class C(A):
+#     def show(self):
+#         print("C")
+# Now:
+
+# d = D()
+# d.show()
+
+#  Output:
+
+# B
+# Why?
+# Because:
+
+# D → B → C → A
+# and B comes first.
+
+#  Key Insight (Important )
+
+# Even though both B and C inherit from A, Python avoids ambiguity by:
+
+# Following left-to-right order
+# Ensuring consistent hierarchy
+
+# 3. No duplication
+
+# Each class appears only once in the chain
+
+#  Visual Structure
+#         A
+#        / \
+#       B   C
+#        \ /
+#         D
+
+# MRO flattens this into:
+
+# D → B → C → A → object
+        
+# Python searches in this order:
+
+# Look in D
+# Then B
+# Then C
+# Then A  (found here)
+# Stop searching
+
+# Python uses something called the C3 Linearization Algorithm.
+
+# Instead of guessing randomly, it follows three strict rules:
+
+# 1. Left-to-right priority
+
+# In:
+
+# class D(B, C):
+
+#  B is checked before C
+# 2. Respect parent hierarchy
+
+# Since both B and C inherit from A, Python ensures:
+#  A comes after both B and C
+
+# Why This Matters
+
+# Without MRO + super(), this would break:
+
+# A might get called multiple times 
+# Order could become unpredictable 
+# Multiple inheritance would be messy 
+
+# Instead, Python guarantees:
+
+#  Each class is called once
+#  Order is consistent
+#  Cooperative inheritance works smoothly
+
+# # errors finding : ***************
+
+# 1. Inconsistent Hierarchy (MRO Conflict)
+#  Example:
+# class A: pass
+
+# class B(A): pass
+# class C(A): pass
+
+# class D(B, C): pass
+# class E(C, B): pass
+
+# # This will break
+# class F(D, E): pass
+#  Error:
+# TypeError: Cannot create a consistent method resolution order (MRO)
+#  Why this breaks
+# Let’s look at the expectations:
+
+# D wants: B → C
+# E wants: C → B
+
+# Now F(D, E) is trying to satisfy BOTH:
+# B before C  
+# C before B  
+
+#  Impossible to satisfy both → Python refuses to create the class.
+#  Insight
+# MRO must be:
+# Linear
+# Consistent
+# Respect parent order
+
+# If not → hard error at class creation time
+
+# error finding ******************
+# 2. Breaking the super() Chain
+#  Example:
+# class A:
+#     def process(self):
+#         print("A")
+
+# class B(A):
+#     def process(self):
+#         print("B")
+#         # super() missing 
+
+# class C(A):
+#     def process(self):
+#         print("C")
+#         super().process()
+
+# class D(B, C):
+#     pass
+
+# d = D()
+# d.process()
+#  Expected MRO:
+# D → B → C → A
+#  Output:
+# B
+#  What went wrong?
+# D goes to B
+# B does NOT call super()
+# Chain stops 
+# C and A never run
+#  Insight
+
+#  MRO still exists, but you broke the chain manually
+
+# This is a silent bug—no error, but wrong behavior.
+
+# olden Rule (Used by pros)
+
+# If you use multiple inheritance:
+
+#  Always use super()
+#  Never call parent directly
+
+# PART 14 — Composition (Professional Design)
+
+# Instead of inheritance:
+
+# class Engine:
+#     pass
+
+# class Car:
+#     def __init__(self):
+#         self.engine = Engine()
+
+# “Has-a” instead of “is-a”
+
+# Better design in real systems.
+
+
+# example : 
+class Engine:
+    def start(self):
+        print("Engine started")
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # composition
+
+    def start(self):
+        print("Car starting...")
+        self.engine.start()
+
+car = Car()
+car.start()
+
+# Why Composition is Better (Real Talk)
+# Inheritance locks you into a rigid hierarchy. Composition gives you flexibility.
+# Inheritance problem:
+
+class ElectricCar(Car):
+    pass
+
+# What if:
+
+# Electric cars don’t have the same engine?
+# You need hybrid behavior?
+
+# You end up with messy class trees.
+
 
 
 

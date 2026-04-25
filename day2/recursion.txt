@@ -1,0 +1,145 @@
+1. The two rules every recursive function MUST have
+
+Every correct recursive solution has:
+
+1) Base case (stop condition)
+
+This prevents infinite calling.
+
+2) Recursive case (the “smaller problem”)
+
+This moves you closer to the base case.
+
+If either is missing or wrong → your program crashes or loops forever.
+
+2. First example: factorial (classic starter)
+
+Factorial:
+
+5! = 5 × 4 × 3 × 2 × 1
+Recursive idea:
+n! = n × (n-1)!
+Python code:
+def factorial(n):
+    # base case
+    if n == 1:
+        return 1
+
+    # recursive case
+    return n * factorial(n - 1)
+What happens when you call factorial(4)?
+factorial(4)
+→ 4 * factorial(3)
+→ 4 * 3 * factorial(2)
+→ 4 * 3 * 2 * factorial(1)
+→ 4 * 3 * 2 * 1
+
+Then it “returns back up”.
+
+3. Key mental model (very important)
+
+Think of recursion like:
+
+“I trust myself to solve a smaller version of the same problem.”
+
+So instead of solving everything at once, you say:
+
+“If I can solve n-1, I can solve n.”
+4. Second example: sum of numbers
+
+Sum from 1 to n:
+
+sum(5) = 5 + 4 + 3 + 2 + 1
+Recursive version:
+def sum_n(n):
+    if n == 1:
+        return 1
+    return n + sum_n(n - 1)
+5. The MOST common mistake
+ Missing base case:
+def bad(n):
+    return n + bad(n - 1)
+
+This will crash (infinite recursion).
+
+6. How to design recursion (step-by-step method)
+
+When solving a problem:
+
+Step 1: Can I break it into smaller same problems?
+
+Example:
+
+factorial → yes (n → n-1)
+tree traversal → yes
+Fibonacci → yes
+Step 2: What is the smallest possible version?
+
+That becomes the base case.
+
+Example:
+
+factorial → 1
+sum → 1
+list → empty list
+string → length 0
+Step 3: Combine result of smaller call
+
+Ask:
+
+“If I already had the answer for smaller input, how do I build the full answer?”
+
+7. Fibonacci (important learning example)
+
+Sequence:
+
+0, 1, 1, 2, 3, 5, 8, ...
+
+Rule:
+
+fib(n) = fib(n-1) + fib(n-2)
+Code:
+def fib(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fib(n - 1) + fib(n - 2)
+
+ Warning: this is slow for big n (we fix that later with memoization).
+
+8. Recursion vs loops (important comparison)
+Loop version:
+def factorial(n):
+    result = 1
+    for i in range(1, n+1):
+        result *= i
+    return result
+Recursive version:
+
+Cleaner logic, but uses call stack.
+
+9. Call stack (why recursion “works”)
+
+Every function call is stored in memory until it returns.
+
+Example:
+
+factorial(3)
+→ factorial(2)
+→ factorial(1)
+
+Then returns:
+
+1 → 2 → 6
+
+If recursion is too deep → stack overflow error.
+
+10. When recursion is actually useful
+
+Use recursion when:
+
+Problem is naturally “self-similar”
+Trees (file systems, DOM, binary trees)
+Backtracking (mazes, permutations)
+Divide & conquer (merge sort, quicksort)

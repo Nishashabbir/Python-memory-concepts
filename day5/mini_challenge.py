@@ -197,3 +197,122 @@ print(f"The price is : Rs {c1.pay_fare(20)}\\-")
 # parser = parser_class()  #here we are creating the object of that class 
 # parser.parse() #and here we are using the function/method of that class
 
+# Deep Understanding Question
+
+# Predict:
+
+class A:
+    x = []  
+
+a1 = A()
+a2 = A()
+
+a1.x.append(1)
+
+print(a2.x)
+
+# If you understand class variables deeply, you’ll know why.
+
+# solution : 
+# So when you do:
+# a1.x.append(1)
+# you’re not modifying something unique to a1 — you’re modifying the single shared list stored on the class A.
+# Both a1.x and a2.x point to the same list object, so:
+# print(a2.x)
+# shows the updated list:
+# [1]
+# If you want each instance to have its own list, you need to use an instance variable:
+# class A:    def __init__(self):        self.x = []
+# Now each object gets its own separate list, and modifying one won’t affect the other.
+# so basically x=[] is being shared among all until unless you define it for each instance differently by the init
+
+# PART 20 — The Level-Up Question
+# Why does this fail?
+
+# class A:
+#     def __init__(self, x=[]):
+#         self.x = x
+# Hint: Default arguments are evaluated once.
+# This single concept separates intermediate from advanced Python developers.
+
+
+# What happens in your code
+
+class A:
+    def __init__(self, x=[]):
+        self.x = x
+
+# The key idea:
+# Default arguments are evaluated once at function definition time, not each time the function is called.
+# So Python does this internally:
+# It creates one single list []
+# That same list is reused every time __init__ is called without x
+
+# So what goes wrong?
+# Let’s see:
+# a1 = A()a2 = A()a1.x.append(1)print(a2.x)
+# You might expect:
+# []
+# But you actually get:
+# [1]
+# Why?
+# Because both a1.x and a2.x point to the same shared list object created once as the default value.
+# So:
+
+# a1.x.append(1) modifies the shared list
+# a2.x sees the same modified list
+
+# solution : 
+# Correct way to write it
+# Use None as a sentinel:
+# class A:    def __init__(self, x=None):        if x is None:            x = []        self.x = x
+# Now:
+
+# Each instance gets a fresh list No accidental sharing
+
+# Why this matters (the “advanced Python” insight) This concept tests whether you understand: Function objects are created once
+# Default arguments are stored in the function’s internal __defaults__
+# Mutable objects can silently create shared state across instances
+# That’s why experienced Python developers avoid mutable defaults entirely.
+# If you want, I can show you how this same bug appears in real-world Django/FastAPI code — it shows up more often than people expect.
+
+
+# more explanation of using None : 
+# What actually happens with x=None
+# class A:
+#     def __init__(self, x=None):
+#         if x is None:
+#             x = []
+#         self.x = x
+# Step-by-step when you do:
+# a1 = A()
+# No argument is passed → x becomes None
+
+# Code runs:
+
+# if x is None:
+#     x = []
+# So a new list is created inside the function
+# # Then:
+# self.x = x
+# assigns that new list to a1.x
+# Now second object:
+# a2 = A()
+# Same process again:
+# x is None
+# New list is created again
+# Assigned to a2.x So a1.x and a2.x are different lists
+# Q-
+# What if I pass a list manually?
+# Example:
+# a1 = A([1,2])
+# a2 = A([3,4])
+#  What Happens Here?  Each time you call:
+# A([1,2])
+# You are creating a new list object manually. So memory becomes:
+# a1.x → [1,2]
+# a2.x → [3,4]
+# Now they are completely independent.
+# A() → x is None, so a new empty list is created inside __init__, and self.x points to it.
+# A([]) → x is an empty list you passed in, so self.x points to that same list (no new list created).
+# A([1,2]) → x is a non-empty list you passed in, so self.x again points to that same list (shared with the caller).

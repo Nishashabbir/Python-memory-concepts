@@ -1,0 +1,115 @@
+3. When decorators are the RIGHT tool
+
+Use decorators when you want cross-cutting concerns, meaning logic that applies to many functions but doesn’t belong to their core purpose.
+
+ Good cases
+ Logging
+@log
+def place_order():
+    ... Authentication / authorization
+@auth_required
+def delete_user():
+    ...
+ Timing / performance measurement
+@timer
+def expensive_task():
+    ...
+ Caching (very common)
+@lru_cache
+def fibonacci(n):
+    ...
+ Input validation
+@validate_inputs
+def create_user(name, age):
+    ...
+ Retry logic (network calls)
+@retry(3)
+def fetch_data():
+    ...
+ 4. When NOT to use decorators (important)
+
+This is where people overuse them.
+
+ 1. When logic is business-critical and confusing
+
+Bad:
+
+@send_email
+@update_database
+def process_payment():
+    ...
+
+Why bad:
+
+hidden side effects
+debugging becomes painful
+execution order becomes unclear
+
+ Better: explicit function calls inside a service layer.
+
+ 2. When behavior changes are too specific per function
+
+If every function needs slightly different logic, decorators become messy.
+
+ 3. When readability suffers
+
+If someone has to mentally unpack 4 decorators:
+
+@a
+@b
+@c
+@d
+def f():
+
+it becomes a “hidden pipeline”.
+
+ 4. When state is heavily involved
+
+Decorators are best for stateless wrappers.
+
+If you start storing lots of state inside them → consider classes instead.
+
+ 5. Should we “always prefer decorators”?
+
+Short answer: NO
+
+Think of it like this:
+
+Decorators are for reusable behavior, not for core logic.
+
+ Prefer decorators when:
+same behavior is reused across many functions
+behavior is “invisible infrastructure” (logging, auth, caching)
+you want clean function bodies
+ Avoid decorators when:
+logic is central to business flow
+order of operations matters a lot
+debugging clarity is important
+behavior is highly specific
+ 6. A mental model that helps
+
+Ask yourself:
+
+“If I removed this decorator, would the function still make sense?”
+
+If YES → decorator is appropriate
+If NO → don’t hide it in a decorator
+ 7. Bonus: why frameworks love decorators
+
+Frameworks like Flask or Django use decorators heavily:
+
+@app.route("/home")
+def home():
+    return "Hello"
+
+Because:
+
+they map functions to URLs (infrastructure)
+they don’t change business logic
+they are reusable patterns
+ Summary
+Multiple decorators stack bottom → top execution
+Decorators are powerful for reusable cross-cutting concerns
+Best uses: logging, auth, caching, retries, validation
+Avoid when they hide core business logic
+Rule of thumb: clarity beats cleverness

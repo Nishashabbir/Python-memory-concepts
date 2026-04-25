@@ -219,14 +219,110 @@
 
 
 
+# simple dictionary 
+
+# dict={
+#     "name" : "Nisha" ,
+#     "class" : "1.5"
+# }
+
+# # two methods to access 
+# print(dict["name"])
+# print(dict.get("class"))
+
+# so we are now going to use this dictionary in a program where class can be used as object 
 
 
+# input parser 
+
+# class jsonparser():
+#     def parse(self):
+#         print("the json is parsing ")
+# class xmlParser():
+#     def parse(self):
+#         print("the xml is being parsed ")
+
+# def getparser():
+    
+
+#     parsers={  #this is the structure basically a better alternative of if else 
+#         "json" : jsonparser ,
+#         "xml" :   xmlParser
+#     }
+#     while True:
+#         format_type=input("Enter a format type : json/xml : ")
+#         parser_class = parsers.get(format_type)
+#         if parser_class:
+#             parser = parser_class()
+#             parser.parse()
+#         else:
+#             print("Invalid format")
+#         proceed = input("Do you want to continue? (y/n): ").lower()
+#         if proceed == "n":
+#             break
+
+# getparser()
 
 
+# Game Character System
+# Different character types, same interface.
+
+# class warrior:
+#     def attack(self):
+#         print("we have a sword attack!")
+# class mage():
+#     def attck(self):
+#         print("A magician has attacked!")
+
+# def battleground(character_class):
+#     character=character_class() #here we created the object of that class 
+#     character.attack()
+
+# battleground(warrior)
+# battleground(mage)
 
 
+# adding the attributes to the  class  dynamically 
+# first
+
+# class A:
+#     pass 
+# def greet(self):
+#     print(f"hello i am from Pakistan")
+
+# A.greet=greet 
+# a=A()
+# a.greet()
+
+# second
+
+# def add_greet(cls):
+
+#     def greet(self):  #you write self  whenever the function is meant to act as an instance method
+#         print("hello ") # this function has returned a print statment so the outer function also has to return smth 
+#     cls.greet=greet  #here we added an attribute 
+#     return cls
+# @add_greet #basically the class is being decorated 
+# class user:
+#     pass 
+
+# u=user()
+# u.greet()
 
 
+# ORM 
+class Model:
+    def save(self):
+       print(f"Saving {self.__class__.__name__}") 
+
+class boher(Model):
+    pass 
+class rutherFord(Model):
+    pass 
+
+lists=[boher() , rutherFord()]
+for list in lists:
+    list.save()
 
 
 

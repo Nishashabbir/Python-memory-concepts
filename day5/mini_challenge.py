@@ -146,3 +146,54 @@ c1=inDrive(bike_ride())
 print(f"The price is : Rs {c1.pay_fare(20)}\\-")
 
     
+
+# uisng decorators :
+# Decorator is automatically called with the function/class as input
+
+# plugins=[]
+
+# def register(cls):
+#     plugins.append(cls)
+#     return cls
+
+# # to prevent calling the register again and again , better use a decorator that directly calls the function and passes the classes to it whenver they're created 
+# @register
+# class loginPlugin:
+#     def runPlugin(self):
+#         print("login plugin is running! ")
+        
+# @register
+# class paymentPlugin:
+#     def runPlugin(self):
+#         print("Payement is processing! ")
+
+
+# for plugin in plugins:
+#     plugin().runPlugin() #here object plugin() is created and then the methods inside it were called 
+
+
+# decorator automatically calls the function 
+
+# 2. Dynamic Object Factory (Real-world: APIs, file handlers)
+
+# Instead of messy if-else, let classes handle creation.
+
+# class JSONParser:
+#     def parse(self):
+#         print("Parsing JSON")
+
+# class XMLParser:
+#     def parse(self):
+#         print("Parsing XML")
+
+# def get_parser(format_type):
+#     parsers = {
+#         "json": JSONParser,
+#         "xml": XMLParser
+#     }
+#     return parsers.get(format_type)
+
+# parser_class = get_parser("json") #function called and a class is recieved which is assigned to the parser_class variable which we already said , a class can be assigned like that 
+# parser = parser_class()  #here we are creating the object of that class 
+# parser.parse() #and here we are using the function/method of that class
+

@@ -1,3 +1,8 @@
+
+
+# function : Standalone; not tied to any object.	Called by its name: my_func().	
+# methods : Associated with a class or an object instance. Called on an object using dot notation: obj.my_method().
+
 class BankAccount:
     total_accounts = 0
     total_money_in_bank = 0

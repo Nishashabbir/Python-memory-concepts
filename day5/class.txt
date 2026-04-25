@@ -186,6 +186,7 @@ Problem:
 Python will raise an error like:
 
 TypeError: __str__ returned non-string (type int)
+
 3. Why str(self.value) fixes it
 def __str__(self):
     return str(self.value)
@@ -202,7 +203,6 @@ Correct thinking:
 
 super() == follow MRO chain
 
-
 Big Picture
 
 MRO + super() together create a cooperative system where:
@@ -210,3 +210,63 @@ MRO + super() together create a cooperative system where:
 Classes don’t hardcode parents
 Behavior composes cleanly
 Complex hierarchies stay predictable
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+function vs method 
+
+self is not special because of where the function is written.
+
+It’s special because of how the function is used.
+
+ What actually makes something a “method”?
+
+When a function is attached to a class and called like this:
+
+u.greet()
+
+Python automatically does:
+
+greet(u)
+
+So the instance (u) is passed as the first argument.
+
+ That’s why we need a parameter to receive it — we usually call it self.
+
+ So your question:
+
+Do we only write self when dynamically adding functions?
+
+ No You write it whenever the function is meant to act as an instance method
+ Compare these cases Inside class (normal way)
+class User:
+    def greet(self):
+        print("Hello")
+
+Python internally treats it like a function that expects self.
+ Outside class but attached later
+def greet(self):
+    print("Hello")
+
+User.greet = greet
+
+Same thing — still needs self.
+ If you forget self
+def greet():
+    print("Hello")
+
+User.greet = greet
+
+u = User()
+u.greet()   # error
+
+Error happens because Python tries:
+
+greet(u)  # but greet() takes 0 arguments
+self is just a convention name, not a keyword.
+
+Rule of thumb
+If the function will be called like object.method()
+→ it must accept the instance as first parameter (self)
+If it won’t use the instance:
+→ use @staticmethod (no self)
+If it works on the class itself:
+→ use @classmethod (uses cls)

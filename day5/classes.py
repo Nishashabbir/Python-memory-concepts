@@ -320,9 +320,9 @@
 #     def age(self):
 #         return self._age
 
-# Now:
-
-# p.age
+# # Now:
+# p=Person(20)
+# print(p.age)
 
 # Feels like attribute, acts like method.
 
@@ -353,6 +353,7 @@
 
 
 
+
 # learn step by step ******************************
 # They’re called “magic methods” because they let your objects behave like built-in types. For example, when you use +, len(), or print(), Python is actually calling these methods behind the scenes.
 # Why they matter
@@ -367,6 +368,62 @@
 
 # there are differnet types of it using it we will then understand 
 
+
+#  Callable objects
+#  __call__
+# class Greeter:
+#     def __call__(self):
+#         print("Hello")
+
+# g = Greeter()
+# g()   # works like a function
+
+# Dynamic access:
+
+# hasattr(u, "name")        # True
+# getattr(u, "name")        # "Ali"
+# setattr(u, "name", "Ahmed")
+
+# __dict__ (VERY useful)
+# class User:
+#     def __init__(self):
+#         self.name = "Ali"
+#         self.age = 20
+
+# u = User()
+# print(u.__dict__)
+
+# Output:
+
+# {'name': 'Ali', 'age': 20}
+
+# 1. Type & identity related
+#  __class__
+
+# You already saw:
+
+# obj.__class__
+
+# → tells you the class of the object
+
+# __name__
+# MyClass.__name__
+
+# → "MyClass"
+
+# Also works for functions:
+
+# def test(): pass
+# print(test.__name__)  # "test"
+
+# __module__
+# MyClass.__module__
+
+# → tells where it was defined
+
+# Output:
+
+# "__main__"
 # 1. Object representation ********
 # __str__
 # __repr__
@@ -1371,3 +1428,5 @@
 # object → instance of class
 # class → instance of type
 # type → class of all classes
+
+

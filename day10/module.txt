@@ -1,0 +1,177 @@
+: What are Python Modules (Core Idea)
+
+A module is simply a file containing Python code that you can reuse.
+
+ Instead of writing everything in one file, you split code into multiple files and import them.
+
+Example
+
+Create a file:
+
+math_utils.py
+def add(a, b):
+    return a + b
+
+Now in another file:
+
+import math_utils
+
+print(math_utils.add(2, 3))  # 5
+
+ You just used a module.
+
+ Why Modules Matter (Interview + Real Use)
+Code reuse (VERY important)
+Clean structure
+Avoid repetition
+Team collaboration
+Large project organization
+
+import math
+print(math.sqrt(16))
+ Types of Modules
+1. Built-in Modules
+
+Already available in Python
+
+Examples:
+
+math
+random
+sys
+2. User-defined Modules
+
+The ones YOU create (like math_utils.py)
+
+3. Third-party Modules
+
+Installed using pip
+
+Examples:
+
+numpy
+pandas
+
+Ways to Import
+1. Normal import
+import math
+print(math.sqrt(25))
+2. Import specific things
+from math import sqrt
+print(sqrt(25))
+3. Import with alias
+import math as m
+print(m.sqrt(25))
+4. Import everything ( avoid in interviews)
+from math import *
+ Important Concept: How Python Finds Modules
+
+Python searches in:
+
+Current directory
+Installed packages
+System paths (sys.path)
+import sys
+print(sys.path)
+
+STEP 2: __name__ == "__main__" (VERY IMPORTANT)
+
+This is not just syntax — it controls how your module behaves.
+
+ Core Idea
+
+Every Python file has a built-in variable:
+
+__name__
+
+Its value depends on how the file is used.
+
+ Case 1: Run file directly
+# file: test.py
+
+print(__name__)
+
+Output:
+
+__main__
+
+ When you run a file directly → Python sets __name__ = "__main__"
+
+ Case 2: Import the file
+# file: test.py
+print(__name__)
+# file: main.py
+import test
+
+Output:
+
+test
+
+ When imported → __name__ = module_name
+
+ Why This Matters
+
+Sometimes you want:
+
+Some code to run only when file is executed directly
+NOT when imported
+ Correct Pattern
+def greet():
+    print("Hello!")
+
+if __name__ == "__main__":
+    print("Running directly")
+    greet()
+Behavior:
+Situation	Output
+Run file directly	prints everything
+Import file	ONLY functions available, no execution
+ Without This (Common Mistake)
+# bad_module.py
+print("This runs always!")
+
+Now:
+
+import bad_module
+
+ Output:
+
+This runs always!
+
+ This is BAD in real projects
+
+ Real Use Cases
+Testing code
+Debugging
+Writing reusable modules
+CLI tools
+ Interview-Level Understanding
+
+If interviewer asks:
+
+ “Why use if __name__ == "__main__"?”
+
+Strong answer:
+
+It ensures that certain parts of code run only when the file is executed directly, not when it's imported as a module. This helps separate reusable logic from execution logic.
+
+
+Using the dir() Function
+There is a built-in function to list all the function names (or variable names) in a module. The dir() function:
+
+Example
+List all the defined names belonging to the platform module:
+
+import platform
+
+x = dir(platform)
+print(x)
+Note: The dir() function can be used on all modules, also the ones you create yourself.
+
+
+
+
+
+
+
+

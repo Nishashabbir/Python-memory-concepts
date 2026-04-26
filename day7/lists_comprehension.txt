@@ -1,0 +1,29 @@
+(VERY IMPORTANT)
+Trap 1: Order confusion
+
+ Wrong thinking:
+
+[if condition for x in range(5)]
+
+ Correct:
+
+[x for x in range(5) if condition]
+Trap 2: if vs if-else confusion
+Purpose	Syntax
+Filter	for x in ... if condition
+Transform	x if condition else y for x in ...
+
+summary: 
+If you remember only this:
+
+# basic
+[expr for item in iterable]
+
+# filter
+[expr for item in iterable if condition]
+
+# if-else transform
+[expr_if_true if condition else expr_if_false for item in iterable]
+
+# nested
+[expr for x in outer for y in inner]

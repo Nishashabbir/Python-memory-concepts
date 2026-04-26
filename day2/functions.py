@@ -248,7 +248,7 @@ print(c()) # from 2 to 3
 
 # don't assume its a loop  and don't assume its outer() running again and again , its just increment stored in c and running again and again 
 
-
+# you can practise more to that 
 
 
 

@@ -136,11 +136,13 @@ def validate(func):
 @log
 @validate
 def data():
-    time.sleep(2)
+    time.sleep(1)
     print("The data is processing .. ")
     time.sleep(2)
     print("The data has successfully processed! ")
 data()
+
+
 
 
 

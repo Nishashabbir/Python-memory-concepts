@@ -1,0 +1,221 @@
+STEP 1: What is Exception Handling (Core Idea)
+
+In Python, an exception is an error that happens during runtime.
+
+Example:
+
+x = 10 / 0   #  ZeroDivisionError
+
+Normally → program crashes
+With exception handling → program handles the error gracefully
+
+ STEP 2: Basic Structure (try-except)
+try:
+    # risky code
+except:
+    # what to do if error occurs
+Example:
+try:
+    num = int(input("Enter number: "))
+    print(10 / num)
+except:
+    print("Something went wrong")
+
+ Problem: This catches everything, which is bad practice.
+
+ STEP 3: Catch Specific Exceptions (IMPORTANT)
+try:
+    num = int(input("Enter number: "))
+    print(10 / num)
+except ZeroDivisionError:
+    print("You can't divide by zero")
+except ValueError:
+    print("Invalid input")
+
+ Now you control different failure cases.
+
+ STEP 4: else Block
+
+Runs only if NO exception occurs
+
+try:
+    num = int(input("Enter number: "))
+    result = 10 / num
+except ZeroDivisionError:
+    print("Divide by zero error")
+else:
+    print("Result is:", result)
+ STEP 5: finally Block (VERY IMPORTANT)
+
+Runs no matter what happens
+
+try:
+    f = open("file.txt")
+except FileNotFoundError:
+    print("File not found")
+finally:
+    print("Closing operation done")
+
+ Used for:
+
+closing files
+releasing resources
+cleanup
+ STEP 6: Full Structure
+try:
+    pass
+except SomeError:
+    pass
+else:
+    pass
+finally:
+    pass
+
+
+    Exception Hierarchy (IMPORTANT CONCEPT)
+
+All exceptions come from:
+
+BaseException
+   └── Exception
+        ├── ValueError
+        ├── ZeroDivisionError
+        ├── TypeError
+
+ That’s why this works:
+
+except Exception:
+
+
+program : /////////////////////////////
+class NegativeNumberError(Exception):
+    pass
+
+try:
+    num = int(input("Enter a number: "))
+
+    if num < 0:
+        raise NegativeNumberError("Negative number is not allowed")
+
+    print(num ** 2)
+
+except NegativeNumberError as e:
+    print(e)
+
+except ValueError:
+    print("Invalid input")
+
+understanding of this program : /////////////////////////////
+This part is NOT passing an argument
+class NegativeNumberError(Exception):
+    pass
+
+You are not passing an argument here.
+
+ This is inheritance, not a function call.
+
+It means:
+
+“Create a new class called NegativeNumberError that behaves like Exception.”
+
+So:
+
+Exception = parent class
+NegativeNumberError = child class
+ 2) Where is the argument actually passed?
+
+Here:
+
+raise NegativeNumberError("negative number is not allowed")
+
+Now THIS is what you were thinking about.
+
+ This line creates an object of the class
+
+It is equivalent to:
+
+error_obj = NegativeNumberError("negative number is not allowed")
+raise error_obj
+
+So yes — your intuition was right:
+ You are calling the class like a constructor
+ You are passing an argument
+ That argument becomes the error message
+
+ 3) But wait… we never wrote __init__, so how does it work?
+
+Because of this:
+
+class NegativeNumberError(Exception):
+
+Your class inherits everything from Exception, including its constructor.
+
+Internally, Exception already has something like:
+
+def __init__(self, message):
+    self.message = message
+
+So when you do:
+
+NegativeNumberError("negative number is not allowed")
+
+ It uses the parent (Exception) constructor
+
+ 4) What connects everything?
+
+Let’s trace the flow step by step:
+
+Step 1 — Class definition
+class NegativeNumberError(Exception):
+    pass
+
+ Creates a new error type
+
+Step 2 — Raising the error
+raise NegativeNumberError("negative number is not allowed")
+
+Python does:
+
+Create object of NegativeNumberError
+Store message inside it
+Stop execution
+Jump to except
+Step 3 — Catching it
+except NegativeNumberError as e:
+    print(e)
+
+ e is the same object created earlier
+ print(e) prints the message
+
+summary: 
+ class NegativeNumberError(Exception) → inheritance
+NegativeNumberError("msg") → object creation
+raise → throws that object
+except → catches that object
+////////////////////////////////////////////////////
+PART 1: isinstance()
+isinstance(x, type)
+
+ It checks:
+“Is x of this type?”
+
+Examples:
+isinstance(5, int)        # True
+isinstance(5.2, float)   # True
+isinstance("5", int)     # False
+ PART 2: (int, float) → Tuple of Types
+isinstance(a, (int, float))
+
+ Means:
+“Is a either an int OR a float?”
+
+Same as:
+
+isinstance(a, int) or isinstance(a, float)
+ PART 3: not
+not isinstance(a, (int, float))
+
+ Reverses it:
+
+If a is a number → False
+If a is NOT a number → Tru

@@ -205,22 +205,22 @@ lst = [1, 2, 3]
 # print(divide(20 ,0))
 
 # # better version 
-# def divide(a, b):
-#     try:
-#         if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-# #   in this line a and b has to be integer or float and if they are not numbers then we will throw a type error 
-#             raise TypeError("Inputs must be numbers")
+def divide(a, b):
+    try:
+        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+#   in this line a and b has to be integer or float and if they are not numbers then we will throw a type error 
+            raise TypeError("Inputs must be numbers")
 
-#         if b == 0:
-#             raise ZeroDivisionError("Cannot divide by zero")
+        if b == 0:
+            raise ZeroDivisionError("Cannot divide by zero")
 
-#         return a / b
+        return a / b
 
-#     except TypeError as e:
-#         return f"Type Error: {e}"
+    except TypeError as e:
+        return f"Type Error: {e}"
 
-#     except ZeroDivisionError as e:
-#         return f"Math Error: {e}"
+    except ZeroDivisionError as e:
+        return f"Math Error: {e}"
 
 
 # isinstance is used to check the type of number 

@@ -1,0 +1,199 @@
+Python Dates ////////////////////////////////////////
+A date in Python is not a data type of its own, but we can import a module named datetime to work with dates as date objects.
+
+ExampleGet your own Python Server
+Import the datetime module and display the current date:
+
+import datetime
+
+x = datetime.datetime.now()
+print(x)
+
+The date contains year, month, day, hour, minute, second, and microsecond.
+The datetime module has many methods to return information about the date object.
+
+Creating Date Objects
+To create a date, we can use the datetime() class (constructor) of the datetime module.
+The datetime() class requires three parameters to create a date: year, month, day.
+
+The datetime() class also takes parameters for time and timezone (hour, minute, second, microsecond, tzone), but they are optional, and has a default value of 0, (None for timezone)
+
+
+Python Math ///////////////////////////////////////////////////////////
+sqrt , abs , pow , ceil , floor 
+Python has a set of built-in math functions, including an extensive math module, that allows you to perform mathematical tasks on numbers.
+
+
+ Python json /////////////////////
+
+JSON is a syntax for storing and exchanging data.
+JSON is text, written with JavaScript object notation.
+
+Python has a built-in package called json, which can be used to work with JSON data.
+If you have a JSON string, you can parse it by using the json.loads() method.
+The result will be a Python dictionary.
+
+
+if you have data in json , you can convert it into python by using => json.loads() method 
+and if you have data in python that you want to convert to json then you will use => json.dump()
+
+
+You can convert Python objects of the following types, into JSON strings:
+
+dict
+list
+tuple
+string
+int
+float
+True
+False
+None
+
+
+When you convert from Python to JSON, Python objects are converted into the JSON (JavaScript) equivalent:
+
+
+Python	JSON
+dict	Object
+list	Array
+tuple	Array
+str	String
+int	Number
+float	Number
+True	true
+False	false
+None	null
+
+
+Python REGEX /////////////////////////////////
+
+
+# A RegEx, or Regular Expression, is a sequence of characters that forms a search pattern.
+# RegEx can be used to check if a string contains the specified search pattern.
+
+RegEx Module
+Python has a built-in package called re, which can be used to work with Regular Expressions.
+
+Import the re module:
+
+import re
+RegEx in Python
+When you have imported the re module, you can start using regular expressions:
+
+Search the string to see if it starts with "The" and ends with "Spain":
+
+import re
+
+txt = "The rain in Spain"
+x = re.search("^The.*Spain$", txt)
+
+RegEx Functions
+The re module offers a set of functions that allows us to search a string for a match:
+
+Function	Description
+findall	Returns a list containing all matches
+search	Returns a Match object if there is a match anywhere in the string
+split	Returns a list where the string has been split at each match
+sub	Replaces one or many matches with a string
+
+The Match object has properties and methods used to retrieve information about the search, and the result:
+
+.span() returns a tuple containing the start-, and end positions of the match.
+.string returns the string passed into the function
+.group() returns the part of the string where there was a match
+
+Example
+Print the position (start- and end-position) of the first match occurrence.
+
+The regular expression looks for any words that starts with an upper case "S":
+
+import re
+
+txt = "The rain in Spain"
+x = re.search(r"\bS\w+", txt)
+print(x.span())
+
+it has many functions , special characters , flags that we can use for the searching 
+
+string formatting /////////////////////////////
+
+using f before the string 
+Placeholders and Modifiers
+To format values in an f-string, add placeholders {}, a placeholder can contain variables, operations, functions, and modifiers to format the value.
+
+in the placeholder you can perform , operations and calculateions 
+you can use the modifiers 
+price = 59
+txt = f"The price is {price:.2f} dollars"
+print(txt)  .2f means fixed number with 2 decimal places 
+
+if else conditions 
+e.g 
+Return "Expensive" if the price is over 50, otherwise return "Cheap":
+
+price = 49
+txt = f"It is very {'Expensive' if price>50 else 'Cheap'}"
+
+print(txt)
+
+
+python NONE ///////////////////////////////////////////////////////
+Python None
+None is a special constant in Python that represents the absence of a value.
+
+Its data type is NoneType, and None is the only instance of a NoneType object.
+
+NoneType*******************
+Variables can be assigned None to indicate "no value" or "not set".
+
+ExampleGet your own Python Server
+Assign and display a None value:
+
+x = None
+print(x)
+Use type() to see the type of a None value.
+
+Example
+Assign and print the data type of a None value:
+
+x = None
+print(type(x))
+Comparing to None ***************88
+To compare a value to None, use the identity operator is or is not
+
+Example
+Use the identity operator is for comparisons with None:
+
+result = None
+if result is None:
+  print("No result yet")
+else:
+  print("Result is ready")
+Example
+Similar example, but using is not instead:
+
+result = None
+if result is not None:
+  print("Result is ready")
+else:
+  print("No result yet")
+
+None evaluates to False in a boolean context.*******************
+
+Example
+Check truthiness:
+
+print(bool(None))
+
+Functions returning None *********************
+Functions that do not explicitly return a value return None by default.
+
+Example
+A function without a return statement returns None:
+
+def myfunc():
+  x = 5
+
+x = myfunc()
+print(x)

@@ -52,3 +52,6 @@ status=["low" if s<=3 else "high" for s in nums ]
 # print(p)
 # print(pairs)
 
+
+
+

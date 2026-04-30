@@ -169,9 +169,228 @@ print(x)
 Note: The dir() function can be used on all modules, also the ones you create yourself.
 
 
+How Python Handles Imports Internally
+
+Most people use modules. Few understand what actually happens.
+
+ 1. Modules are loaded ONLY ONCE (Caching)
+
+When you import a module, Python:
+
+Loads it into memory
+Stores it in:
+import sys
+print(sys.modules)
+
+ This is a dictionary of already loaded modules
+
+ Example
+my_module.py
+print("Module is loading...")
+main.py
+import my_module
+import my_module
+
+ Output:
+
+Module is loading...
+
+ Only runs once
+
+ Why?
+
+Because Python caches it in:
+
+sys.modules["my_module"]
+
+So second import just reuses it.
+
+ Interview Trap
+ Question: “What happens if you import the same module multiple times?”
+
+Strong answer:
+
+Python loads it once and reuses it from sys.modules, avoiding re-execution.
+
+ 2. Forcing Reload (Advanced)
+
+Sometimes you WANT to reload (rare but important)
+
+import importlib
+import my_module
+
+importlib.reload(my_module)
+ When is this used?
+Debugging
+Dynamic systems
+Plugin architectures
+ 3. Namespace Problem (VERY IMPORTANT)
+from math import sqrt
+from cmath import sqrt
+
+ Now which sqrt is used?
+
+ Overwritten → last one wins
+
+ Better Approach
+import math
+import cmath
+
+math.sqrt(4)
+cmath.sqrt(-4)
+
+ Clean + safe
+
+ 4. Module as Object
+
+Modules are actually objects
+
+import math
+
+print(type(math))
+
+ Output:
+
+<class 'module'>
+
+You can even do:
+
+math.new_attr = "hello"
+print(math.new_attr)
+ 5. dir() — Explore Modules
+import math
+print(dir(math))
+
+ Shows all functions inside module
+
+ Exercises (IMPORTANT)
+Exercise 1
+
+Create a module with:
+
+print("Loaded")
+
+Import it twice — explain why it prints once.
+
+Exercise 2
+
+Print all attributes of random module.
+
+Exercise 3 (Conceptual)
+
+Why is this dangerous?
+
+from math import *
+Exercise 4 
+
+What happens?
+
+import math
+math = 10
+
+print(math.sqrt(4))
+Exercise 5 (VERY IMPORTANT)
+
+Explain:
+
+ Difference between:
+
+import module
+
+and
+
+from module import something    
 
 
 
+from .something → only works inside a package (python -m ...)
+Running files directly → use absolute imports or a separate main.py
 
 
+.payment is a relative import (inside a package)/////////////////////
+ payment is a top-level import (global/module-level)
 
+Relative (clean inside package)
+from .payment import process_payment 
+ Absolute 
+from shop.payment import process_payment
+ Analogy (easy way to think)
+payment → “look anywhere in the world”
+.payment → “look in my room (same package)”
+
+Circular Import Fix
+Problem:
+# user.py
+import order
+
+# order.py
+import user
+ Fix 1 (Quick Fix)
+
+Move import inside function:
+
+# user.py
+def create_user():
+    import order
+ Fix 2 (Best Practice — REAL SOLUTION)
+
+ Extract shared logic
+
+shared.py
+# shared.py
+def common_logic():
+    pass
+
+Then:
+
+# user.py
+from shared import common_logic
+
+# order.py
+from shared import common_logic
+
+note :///////////////////////////
+import math  #import module 
+print(math.sqrt(49))
+from math import sqrt #import func() from module 
+print(sqrt(49)) 
+
+Circular Import (Execution Flow) /////////////////////////////////
+# a.py
+import b
+
+# b.py
+import a
+Step-by-step:
+Python starts loading a
+a imports b
+Python starts loading b
+b tries importing a again
+But a is not fully initialized yet
+
+ Result:
+
+incomplete module
+missing attributes
+errors / unexpected behavior
+
+
+Can expose functions //////////////////
+from .math_utils import add
+ So user can do:
+
+from utils import add
+
+if a file with this code 
+def add(a,b):
+    return a+b
+
+if __name__ == "__main__":
+    print(add(2,3))
+
+Now:
+
+Running file directly → prints result
+Importing file → doesn’t execute print
+
+The dir() function can be used on all modules, also the ones you create yourself.

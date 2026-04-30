@@ -22,9 +22,10 @@
 # Exercise 4 (Important)
 
 # Explain in your own words:
-# 👉 Difference between:
+#  Difference between:
 
 # import math
 # from math import sqrt
 
 print(__name__)
+

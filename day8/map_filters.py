@@ -2,7 +2,7 @@
 # 1-map() — transformation ////////////////////////////////////////////
 # What it does
 
-# Applies a function to every item.
+# Applies a function to every item in the list 
 
 # nums = [1, 2, 3, 4]
 

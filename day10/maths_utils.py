@@ -7,3 +7,4 @@ def mult(a , b):
     return a*b
 
 print(__name__)
+

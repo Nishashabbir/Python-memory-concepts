@@ -58,68 +58,8 @@
 #     print("Thank you for voting..!")
 
 
-
-
-# Q1
-
-# Take a number from user:
-
-# If negative → raise custom exception
-# Else → print square
-
-
-
-
-# number=int(input("Enter a number from user : "))
-# if number <0:
-#     except Exception :
-#         print("this is how it goes ")
-#     else:
-#         print(number**2)
-
-
-# Create a program:
-
-# Ask for filename
-# If file doesn't exist → show error using as e
-# Always print: "Program ended" using finally
-
-
-
-# Handle this:
-
-# lst = [1, 2, 3]
-# print(lst[5])
-
-#  Catch the correct exception and print a custom message.
-
-# lst = [1, 2, 3]
-# try:
-#     print(lst[5])
-# except IndexError:
-#    print("not applicable ")
-
-
-   
-# Write a function:
-# def divide(a, b):
-# Rules:
-# If b == 0 → raise exception
-# If inputs are not numbers → handle properly
-# Return result if valid
-
-
-# def division(a , b):
-#     return a/b
-#     if b==0:
-#         raise ZeroDivisionError ("can't divide with zero ")
-
-# division(2,0)
-
-
-
-    
-
+ 
+# ///////////////////////////////////////////////////
 # exercises 
 # Q-1
 # Handle:
@@ -251,39 +191,75 @@ lst = [1, 2, 3]
 # Return result if valid
 
 
-def divide(a , b):
-    try:
-        if b==0:
-            raise ZeroDivisionError ("can not divided by zero ") #throw an error if b==0 
-        return a/b
-    except ZeroDivisionError as e: #catch the error that was thrown and handle it gracefully
-        print(e)
+# def divide(a , b):
+#     try:
+#         if b==0:
+#             raise ZeroDivisionError ("can not divided by zero ") #throw an error if b==0 
+#         return a/b
+#     except ZeroDivisionError as e: #catch the error that was thrown and handle it gracefully
+#         print(e)
 
 
 
-print(divide(20 , 10))
-print(divide(20 ,0))
+# print(divide(20 , 10))
+# print(divide(20 ,0))
 
-# better version 
-def divide(a, b):
-    try:
-        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-#   in this line a and b has to be integer or float and if they are not numbers then we will throw a type error 
-            raise TypeError("Inputs must be numbers")
+# # better version 
+# def divide(a, b):
+#     try:
+#         if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+# #   in this line a and b has to be integer or float and if they are not numbers then we will throw a type error 
+#             raise TypeError("Inputs must be numbers")
 
-        if b == 0:
-            raise ZeroDivisionError("Cannot divide by zero")
+#         if b == 0:
+#             raise ZeroDivisionError("Cannot divide by zero")
 
-        return a / b
+#         return a / b
 
-    except TypeError as e:
-        return f"Type Error: {e}"
+#     except TypeError as e:
+#         return f"Type Error: {e}"
 
-    except ZeroDivisionError as e:
-        return f"Math Error: {e}"
+#     except ZeroDivisionError as e:
+#         return f"Math Error: {e}"
 
 
 # isinstance is used to check the type of number 
-# isinstance(x, type)
-isinstance(0.5 , float)
-isinstance(5 , (int , float))
+# # isinstance(x, type)
+# isinstance(0.5 , float)
+# isinstance(5 , (int , float))
+
+
+# logging 
+
+
+import logging
+
+logging.basicConfig(
+    filename="simple.log",
+    level=logging.ERROR,
+    format="%(levelname)s: %(message)s"
+)
+
+# this will help create a file to store the details of the error as best practise  , if you don't write this , the file will not be created 
+try:
+    num = int(input("Enter a number: "))
+    print(f"Square is {num**2}")
+
+except ValueError as e:#the e that we printed we can also log it 
+    print("Invalid input")
+    logging.error("ValueError: %s", e)
+        # logging.error("ValueError occurred", exc_info=True) #better use this line 
+
+
+finally:
+    print("Process ended")
+
+# %s is a placeholder
+#  It means: “put the value of e here as a string” This is old Python string formatting style (called printf-style formatting).
+# %s → string
+# %d → integer
+# %f → float
+
+# Example:
+
+# logging.error("Number: %d", 5)

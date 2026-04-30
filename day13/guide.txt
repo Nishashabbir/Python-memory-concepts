@@ -218,4 +218,54 @@ not isinstance(a, (int, float))
  Reverses it:
 
 If a is a number → False
-If a is NOT a number → Tru
+If a is NOT a number → true
+
+
+guidelines //////////////////////////////
+
+
+Keep try block small
+ Good:
+
+try:
+    result = 10 / x
+ Bad:
+
+try:
+    x = int(input())
+    result = 10 / x
+    print(result)
+
+    Use finally for cleanup
+    Raise exceptions for invalid logic
+
+    with open("file.txt") as f:
+    data = f.read() What’s really happening?
+
+with uses something called a context manager:
+
+Opens resource 
+Ensures cleanup automatically  (even if error occurs)
+
+ Equivalent to:
+
+f = open("file.txt")
+try:
+    data = f.read()
+finally:
+    f.close()
+ So:
+
+with = safe + clean + professional
+
+Logging vs Printing Errors
+
+Beginners:
+
+print("Error:", e)
+
+Real-world:
+
+import logging
+
+logging.error("Error occurred: %s", e)
